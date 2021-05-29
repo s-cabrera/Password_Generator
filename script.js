@@ -73,76 +73,107 @@ function wantSpecial(){//This will return true or false
 /*----------------------------- END OF INPUT FUNCTIONS W/ VALIDATION ------------------------------*/
 
 function newPassword(length){
-  let mashArray = ""; //This is for mashing together the other type arrays into one
+  let mashedArray = ""; //This is for mashing together the other type arrays into one
+  let newArray = ""; //This will be the password that is returned
 
   // False is 0. True is 1. In the form [lowercase] [uppercase] [numbers] [special]
   if(!type[0] && !type[1] && !type[2] && type[3]){ //0001
-    return mashedPassword(length, special); 
+    return mashedPassword(length, 0, special, newArray); 
   }
   else if(!type[0] && !type[1] && type[2] && !type[3]){ //0010
-    return mashPassword(length, numbers);
+    return mashPassword(length, 0, numbers, newArray);
   }
   else if(!type[0] && !type[1] && type[2] && type[3]){ //0011
     mashedArray = numbers + special;
-    return mashPassword(length, mashedArray);
+    newArray += numbers[random(numbers.length)];
+    newArray += special[random(special.length)];
+    return mashPassword(length, 2, mashedArray, newArray);
   }
   else if(!type[0] && type[1] && !type[2] && !type[3]){ //0100
-    return mashPassword(length, uppercase);
+    return mashPassword(length, 0, uppercase, newArray);
   }
   else if(!type[0] && type[1] && !type[2] && type[3]){ //0101
     mashedArray = uppercase + special;
-    return mashPassword(length, mashedArray);
+    newArray += uppercase[random(uppercase.length)];
+    newArray += special[random(special.length)];
+    return mashPassword(length, 2, mashedArray, newArray);
   }
   else if(!type[0] && type[1] && type[2] && !type[3]){ //0110
     mashedArray = uppercase + numbers;
-    return mashPassword(length, mashedArray);
+    newArray += uppercase[random(uppercase.length)];
+    newArray += numbers[random(numbers.length)];
+    return mashPassword(length, 2, mashedArray, newArray);
   }
   else if(!type[0] && type[1] && type[2] && type[3]){ //0111
     mashedArray = uppercase + numbers + special;
-    return mashPassword(length, mashedArray);
+    newArray += uppercase[random(uppercase.length)];
+    newArray += numbers[random(numbers.length)];
+    newArray += special[random(special.length)];
+    return mashPassword(length, 3, mashedArray, newArray);
   }
   else if(type[0] && !type[1] && !type[2] && !type[3]){ //1000
-    return mashPassword(length, lowercase);
+    return mashPassword(length, 0, lowercase, newArray);
   }
   else if(type[0] && !type[1] && !type[2] && type[3]){ //1001
     mashedArray = lowercase + special;
-    return mashPassword(length, mashedArray);
+    newArray += lowercase[random(lowercase.length)];
+    newArray += special[random(special.length)];
+    return mashPassword(length, 2, mashedArray, newArray);
   }
   else if(type[0] && !type[1] && type[2] && !type[3]){ //1010
     mashedArray = lowercase + numbers;
-    return mashPassword(length, mashedArray);
+    newArray += lowercase[random(lowercase.length)];
+    newArray += numbers[random(numbers.length)];
+    return mashPassword(length, 2, mashedArray, newArray);
   }
   else if(type[0] && !type[1] && type[2] && type[3]){ //1011
     mashedArray = lowercase + numbers + special;
-    return mashPassword(length, mashedArray);
+    newArray += lowercase[random(lowercase.length)];
+    newArray += numbers[random(numbers.length)];
+    newArray += special[random(special.length)];
+    return mashPassword(length, 3, mashedArray, newArray);
   }
   else if(type[0] && type[1] && !type[2] && !type[3]){ //1100
     mashedArray = lowercase + uppercase;
-    return mashPassword(length, mashedArray);
+    newArray += lowercase[random(lowercase.length)];
+    newArray += uppercase[random(uppercase.length)];
+    return mashPassword(length, 2, mashedArray, newArray);
   }
   else if(type[0] && type[1] && !type[2] && type[3]){ //1101
     mashedArray = lowercase + uppercase + special;
-    return mashPassword(length, mashedArray);
+    newArray += lowercase[random(lowercase.length)];
+    newArray += uppercase[random(uppercase.length)];
+    newArray += special[random(special.length)];
+    return mashPassword(length, 3, mashedArray, newArray);
   }
   else if(type[0] && type[1] && type[2] && !type[3]){ //1110
     mashedArray = lowercase + uppercase + numbers;
-    return mashPassword(length, mashedArray);
+    newArray += lowercase[random(lowercase.length)];
+    newArray += uppercase[random(uppercase.length)];
+    newArray += numbers[random(numbers.length)];
+    return mashPassword(length, 3, mashedArray, newArray);
   }
   else if(type[0] && type[1] && type[2] && type[3]){ //1111
     mashedArray = lowercase + uppercase + numbers + special;
-    return mashPassword(length, mashedArray);
+    newArray += lowercase[random(lowercase.length)];
+    newArray += uppercase[random(uppercase.length)];
+    newArray += numbers[random(numbers.length)];
+    newArray += special[random(special.length)];
+    return mashPassword(length, 4, mashedArray, newArray);
   }
   else{// 0000 false false false false 
-    return mashPassword(length, lowercase);
+    return mashPassword(length, 0, lowercase, newArray);
   }
 }
 
-function mashPassword(length, mashedArray){
-  var newArray = "";
-  for(var i = 0; i < length; i++){
+function mashPassword(length, start, mashedArray, newArray){
+  /*This takes in the length of the array, the index you wish to start at,
+   the array with the characters you selected, and the string that will be 
+   concatenated and returned as the final password  */
+  for(var i = start; i < length; i++){
     newArray += mashedArray[random(mashedArray.length)];
-  } 
-  return newArray;
+  }
+  return newArray 
 }
 
 function random(n){
