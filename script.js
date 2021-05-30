@@ -177,7 +177,7 @@ function mashPassword(length, start, mashedArray, newArray){
 }
 
 function random(n){
-  console.log( `Length of array: ${n}`)
+  console.log( `Length of array: ${n}`);
   var x = Math.floor(Math.random() * n);
   console.log(`Random(): ${x}`);
   return x;
